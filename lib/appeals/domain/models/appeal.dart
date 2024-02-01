@@ -12,7 +12,4 @@ class Appeal extends HiveObject {
   final DateTime appealDate;
 
   Appeal(this.appealNumber, this.appealStatus, this.appealDate);
-
-  // @override
-  // List<Object?> get props => [appealNumber, appealStatus, appealDate];
 }

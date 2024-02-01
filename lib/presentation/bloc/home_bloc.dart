@@ -12,7 +12,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<RegisterServicesEvent>((event, emit) async {
       await _appeal.init();
 
-      emit(HomeInitial());
+      emit(const HomeInitial());
     });
   }
 }

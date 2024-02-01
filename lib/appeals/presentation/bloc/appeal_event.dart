@@ -34,9 +34,10 @@ class RemoveAppeal extends AppealsEvent {
 
 class ChangeStatus extends AppealsEvent {
   final Appeal appeal;
+  final String newStatus;
 
-  const ChangeStatus(this.appeal);
+  const ChangeStatus(this.appeal, this.newStatus);
 
   @override
-  List<Object?> get props => [appeal];
+  List<Object?> get props => [appeal, newStatus];
 }

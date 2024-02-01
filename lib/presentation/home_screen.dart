@@ -24,8 +24,9 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: const Color(0xFFD1D1D6),
         currentIndex: 2,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Счета"),
           BottomNavigationBarItem(
               icon: Icon(Icons.monetization_on), label: "Оплата"),

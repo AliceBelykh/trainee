@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 class StatusDialog extends StatelessWidget {
-  //final String buttonText;
-  //final Function()? onTap;
-
   const StatusDialog({super.key});
 
   @override
@@ -11,16 +8,34 @@ class StatusDialog extends StatelessWidget {
     return SimpleDialog(
       title: const Text("Выберите статус обращения"),
       children: [
-        SimpleDialogOption(onPressed: () {},
-          child: const Text('Решен'),),
-        SimpleDialogOption(onPressed: () {},
-          child: const Text('Закрыт'),),
-        SimpleDialogOption(onPressed: () {},
-          child: const Text('Принят в обработку'),),
-        TextButton(onPressed: () {}, child: Text('Удалить обращение')),
-        TextButton(onPressed: () {
-          Navigator.of(context).pop();
-        }, child: Text('Отмена'))
+        SimpleDialogOption(
+          onPressed: () {
+            Navigator.pop(context, 'Решен');
+          },
+          child: const Text('Решен'),
+        ),
+        SimpleDialogOption(
+          onPressed: () {
+            Navigator.pop(context, 'Закрыт');
+          },
+          child: const Text('Закрыт'),
+        ),
+        SimpleDialogOption(
+          onPressed: () {
+            Navigator.pop(context, 'Принят в обработку');
+          },
+          child: const Text('Принят в обработку'),
+        ),
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context, 'Delete');
+            },
+            child: const Text('Удалить обращение')),
+        TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Отмена'))
       ],
     );
   }
