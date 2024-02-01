@@ -1,16 +1,11 @@
 # trainee
 
-A new Flutter project.
+A trainee's Flutter project.
 
-## Getting Started
+## Основные задания
+Реализовано:
+1. При нажатии на “Создать обращение” создается новое обращение со случайным статусом и номером
+2. При нажатии на обращение открывается диалоговое окно, в котором можно изменить статус обращения, а также удалить обращение
+3. Данные храняться в локальном хранилище (Hive)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+При реализации использовалась библиотека flutter_bloc.
