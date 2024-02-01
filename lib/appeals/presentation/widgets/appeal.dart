@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trainee/widgets/status_dialog.dart';
+import 'package:trainee/appeals/presentation/widgets/status.dart';
+import 'package:trainee/appeals/presentation/widgets/status_dialog.dart';
 
 class AppealTile extends StatelessWidget {
   final int appealNumber;
@@ -33,16 +34,7 @@ class AppealTile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Color(0x4434C759),
-                        borderRadius: BorderRadius.circular(16)),
-                    padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
-                    child: Text(
-                      appealStatus,
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ),
+                  StatusTag(appealStatus: appealStatus),
                   SizedBox(
                     child: Text(
                         "${appealDate.day}.${appealDate.month}.${appealDate.year}"),

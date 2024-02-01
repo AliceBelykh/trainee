@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AppealButton extends StatelessWidget {
+class AddButton extends StatelessWidget {
   final String buttonText;
   final Function()? onTap;
 
-  const AppealButton(
+  const AddButton(
       {super.key,
         required this.buttonText, this.onTap});
 
