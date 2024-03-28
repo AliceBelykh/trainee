@@ -13,6 +13,16 @@ class DataCubit extends Cubit<DataState> {
   }
 
   void fetchData() {
-    emit(state.copyWith(data: [Appeal(123456, "Решен", DateTime.now())]));
+    emit(state.copyWith(data: [
+      // Appeal(
+      //   appealNumber: 123456,
+      //   appealStatus: 'Решен',
+      //   appealDate: DateTime.now(),
+      // )
+      Appeal(
+          appealNumber: 123456,
+          appealStatus: 'Решен',
+          appealDate: DateTime.now())
+    ]));
   }
 }

@@ -1,22 +1,14 @@
-// import 'package:hive/hive.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-// part 'appeal.g.dart';
+part 'appeal.freezed.dart';
 
-// @HiveType(typeId: 1)
-// class Appeal extends HiveObject {
-//   @HiveField(0)
-//   final int appealNumber;
-//   @HiveField(1)
-//   final String appealStatus;
-//   @HiveField(3)
-//   final DateTime appealDate;
+@freezed
+class Appeal with _$Appeal {
+  const factory Appeal({
+    required int appealNumber,
+    required String appealStatus,
+    required DateTime appealDate,
+  }) = _Appeal;
 
-//   Appeal(this.appealNumber, this.appealStatus, this.appealDate);
-// }
-class Appeal {
-  final int appealNumber;
-  final String appealStatus;
-  final DateTime appealDate;
-
-  Appeal(this.appealNumber, this.appealStatus, this.appealDate);
+  const Appeal._();
 }
