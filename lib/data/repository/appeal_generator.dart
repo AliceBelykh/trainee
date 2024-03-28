@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:trainee/appeals/domain/models/statuses.dart';
-
-import 'models/appeal.dart';
+import 'package:trainee/domain/models/appeal.dart';
+import 'package:trainee/domain/models/statuses.dart';
 
 class AppealGenerator {
   final Random _random = Random();

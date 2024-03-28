@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trainee/appeals/presentation/widgets/status.dart';
+import 'package:trainee/presentation/widgets/status.dart';
 
 class AppealTile extends StatelessWidget {
   final int appealNumber;
