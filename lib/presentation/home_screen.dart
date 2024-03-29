@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trainee/domain/models/appeal.dart';
+import 'package:trainee/domain/models/appeal_generator.dart';
 import 'package:trainee/get_it.dart';
 import 'package:trainee/presentation/cubit/appeals_cubit/appeals_cubit.dart';
+import 'package:trainee/presentation/widgets/add_button.dart';
 import 'package:trainee/presentation/widgets/appeal_tile.dart';
+import 'package:trainee/presentation/widgets/status_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,38 +16,73 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late AppealCubit _AppealCubit;
+  late AppealCubit _appealCubit;
 
   @override
   void initState() {
     super.initState();
 
-    _AppealCubit = getIt.get<AppealCubit>();
+    _appealCubit = getIt.get<AppealCubit>();
   }
 
   @override
   void dispose() {
-    _AppealCubit.close();
+    _appealCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AppealCubit>.value(
-      value: _AppealCubit,
+      value: _appealCubit,
       child: Scaffold(
-        body: BlocSelector<AppealCubit, AppealState, List<Appeal>?>(
-          selector: (state) => state.data,
-          builder: (context, data) => ListView.builder(
-            itemBuilder: (context, index) {
-              final item = data![index];
-              return AppealTile(
-                appealNumber: item.appealNumber,
-                appealStatus: item.appealStatus,
-                appealDate: item.appealDate,
-              );
-            },
-            itemCount: data?.length,
+        body: Padding(
+          padding: const EdgeInsets.only(left: 18.0, top: 100.0, right: 18.0),
+          child: Column(
+            children: [
+              // title
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Обращения',
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              // add button
+              BlocBuilder<AppealCubit, AppealState>(
+                  builder: (context, data) => AddButton(
+                        onTap: () async {
+                          final appeal = AppealGenerator().generateAppeal();
+                          BlocProvider.of<AppealCubit>(context)
+                              .addAppeal(appeal);
+                        },
+                        buttonText: "Создать обращение",
+                      )),
+
+              const SizedBox(height: 18),
+
+              // appeals listview
+              BlocSelector<AppealCubit, AppealState, List<Appeal>?>(
+                selector: (state) => state.data,
+                builder: (context, data) => Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      final item = data![index];
+                      return AppealTile(
+                        appealNumber: item.appealNumber,
+                        appealStatus: item.appealStatus,
+                        appealDate: item.appealDate,
+                        onTap: () => showAppealDialog(item, context),
+                      );
+                    },
+                    itemCount: data?.length,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -61,81 +99,18 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
 
-class _Body extends StatefulWidget {
-  const _Body({super.key});
-
-  @override
-  State<_Body> createState() => _BodyState();
-}
-
-class _BodyState extends State<_Body> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 18.0, top: 100.0, right: 18.0),
-      child: Column(
-        children: <Widget>[
-          const Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              'Обращения',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 18),
-          // BlocBuilder<AppealsBloc, AppealsState>(
-          //   builder: (context, state) {
-          //     return AddButton(
-          //       onTap: () async {
-          //         final appeal = AppealGenerator().generateAppeal();
-          //         BlocProvider.of<AppealsBloc>(context)
-          //             .add(AddAppeal(appeal));
-          //       },
-          //       buttonText: "Создать обращение",
-          //     );
-          //   },
-          // ),
-          const SizedBox(height: 18),
-          // BlocBuilder<AppealsBloc, AppealsState>(
-          //   builder: (context, state) {
-          //     if (state is AppealsLoaded) {
-          //       return Expanded(
-          //         child: ListView(
-          //           padding: EdgeInsets.zero,
-          //           children: state.appeals
-          //               .map(
-          //                 (e) => AppealTile(
-          //                   onTap: () async {
-          //                     await showDialog<String>(
-          //                         context: context,
-          //                         builder: (BuildContext context) {
-          //                           return const StatusDialog();
-          //                         }).then((result) {
-          //                       if (result == "Delete") {
-          //                         BlocProvider.of<AppealsBloc>(context)
-          //                             .add(RemoveAppeal(e));
-          //                       } else if (result != null) {
-          //                         BlocProvider.of<AppealsBloc>(context)
-          //                             .add(ChangeStatus(e, result));
-          //                       }
-          //                     });
-          //                   },
-          //                   appealNumber: e.appealNumber,
-          //                   appealStatus: e.appealStatus,
-          //                   appealDate: e.appealDate,
-          //                 ),
-          //               )
-          //               .toList(),
-          //         ),
-          //       );
-          //     }
-          //     return Container();
-          //   },
-          // ),
-        ],
-      ),
-    );
+  showAppealDialog(Appeal appeal, BuildContext context) async {
+    await showDialog<String>(
+        context: context,
+        builder: (context) {
+          return const StatusDialog();
+        }).then((result) {
+      if (result == "Delete") {
+        BlocProvider.of<AppealCubit>(context).deleteAppeal(appeal);
+      } else if (result != null) {
+        BlocProvider.of<AppealCubit>(context).changeStatus(appeal, result);
+      }
+    });
   }
 }

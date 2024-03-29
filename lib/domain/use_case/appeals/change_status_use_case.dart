@@ -3,8 +3,8 @@ import 'package:trainee/domain/models/appeal.dart';
 import 'package:trainee/domain/repository/appeals_repository.dart';
 
 @injectable
-class AddAppealsUseCase {
-  AddAppealsUseCase(this._appealsRepository);
+class ChangeStatusUseCase {
+  ChangeStatusUseCase(this._appealsRepository);
 
   final AppealsRepository _appealsRepository;
 

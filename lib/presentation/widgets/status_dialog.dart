@@ -7,6 +7,9 @@ class StatusDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: const Text("Выберите статус обращения"),
+      backgroundColor: const Color(0xFFF5F4F2),
+      shadowColor: const Color(0xFF5856D6),
+      surfaceTintColor: const Color.fromARGB(255, 128, 127, 125),
       children: [
         SimpleDialogOption(
           onPressed: () {

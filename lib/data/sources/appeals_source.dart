@@ -9,7 +9,7 @@ class AppealsSource {
   ];
 
   Future<List<AppealDto>> getAppeals() {
-    return Future.delayed(const Duration(seconds: 1), () => _appeals);
+    return Future.delayed(const Duration(milliseconds: 200), () => _appeals);
   }
 
   Future<void> addAppeal(AppealDto appealDto) async {
@@ -23,7 +23,6 @@ class AppealsSource {
   }
 
   Future<void> deleteAppeal(AppealDto appealDto) async {
-    AppealDto res = _appeals.firstWhere((element) => element == appealDto);
-    _appeals.remove(res);
+    _appeals.removeWhere((element) => element == appealDto);
   }
 }
