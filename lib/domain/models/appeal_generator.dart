@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:trainee/appeals/domain/models/statuses.dart';
-
-import 'models/appeal.dart';
+import 'package:trainee/domain/models/appeal.dart';
+import 'package:trainee/domain/models/statuses.dart';
 
 class AppealGenerator {
   final Random _random = Random();
@@ -16,6 +15,7 @@ class AppealGenerator {
     }
     String status =
         statusesMap.keys.elementAt(_random.nextInt(statusesMap.length));
-    return Appeal(number, status, DateTime.now());
+    return Appeal(
+        appealNumber: number, appealStatus: status, appealDate: DateTime.now());
   }
 }

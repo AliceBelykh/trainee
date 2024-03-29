@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trainee/appeals/domain/models/statuses.dart';
+import 'package:trainee/domain/models/statuses.dart';
 
 class StatusTag extends StatelessWidget {
   final String appealStatus;
