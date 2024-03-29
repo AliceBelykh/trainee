@@ -2,27 +2,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:trainee/domain/models/appeal.dart';
+import 'package:trainee/domain/repository/appeals_repository.dart';
 
 part 'appeals_cubit.freezed.dart';
 part 'appeals_state.dart';
 
-@singleton
-class DataCubit extends Cubit<DataState> {
-  DataCubit() : super(const DataState()) {
+@injectable
+class AppealCubit extends Cubit<AppealState> {
+  final AppealsRepository _repository;
+
+  AppealCubit(this._repository) : super(const AppealState()) {
     fetchData();
   }
 
   void fetchData() {
-    emit(state.copyWith(data: [
-      // Appeal(
-      //   appealNumber: 123456,
-      //   appealStatus: 'Решен',
-      //   appealDate: DateTime.now(),
-      // )
-      Appeal(
-          appealNumber: 123456,
-          appealStatus: 'Решен',
-          appealDate: DateTime.now())
-    ]));
+    _repository.getAppeals().then((value) => emit(state.copyWith(data: value)));
   }
 }

@@ -1,8 +1,12 @@
+import 'package:injectable/injectable.dart';
 import 'package:trainee/data/dto/appeal_dto/appeal_dto.dart';
 
-//singleton?
+@singleton
 class AppealsSource {
-  List<AppealDto> _appeals = [];
+  final List<AppealDto> _appeals = [
+    AppealDto(
+        appealNumber: 123456, appealStatus: "Решен", appealDate: DateTime.now())
+  ];
 
   Future<List<AppealDto>> getAppeals() {
     return Future.delayed(const Duration(seconds: 1), () => _appeals);

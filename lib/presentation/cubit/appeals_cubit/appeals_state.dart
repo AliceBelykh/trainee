@@ -1,8 +1,8 @@
 part of 'appeals_cubit.dart';
 
 @freezed
-class DataState with _$DataState {
-  const factory DataState({
+class AppealState with _$AppealState {
+  const factory AppealState({
     List<Appeal>? data,
-  }) = _DataState;
+  }) = _AppealState;
 }

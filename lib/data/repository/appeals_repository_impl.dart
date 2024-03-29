@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:trainee/data/dto/appeal_dto/appeal_dto.dart';
 import 'package:trainee/data/sources/appeals_source.dart';
 import 'package:trainee/domain/models/appeal.dart';
 import 'package:trainee/domain/repository/appeals_repository.dart';
 
+@LazySingleton(as: AppealsRepository)
 class AppealsRepositoryImpl implements AppealsRepository {
   AppealsRepositoryImpl(
     this._appealsSource,

@@ -13,27 +13,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late DataCubit _dataCubit;
+  late AppealCubit _AppealCubit;
 
   @override
   void initState() {
     super.initState();
 
-    _dataCubit = getIt.get<DataCubit>();
+    _AppealCubit = getIt.get<AppealCubit>();
   }
 
   @override
   void dispose() {
-    _dataCubit.close();
+    _AppealCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<DataCubit>.value(
-      value: _dataCubit,
+    return BlocProvider<AppealCubit>.value(
+      value: _AppealCubit,
       child: Scaffold(
-        body: BlocSelector<DataCubit, DataState, List<Appeal>?>(
+        body: BlocSelector<AppealCubit, AppealState, List<Appeal>?>(
           selector: (state) => state.data,
           builder: (context, data) => ListView.builder(
             itemBuilder: (context, index) {

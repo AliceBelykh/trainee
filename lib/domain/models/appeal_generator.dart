@@ -15,12 +15,7 @@ class AppealGenerator {
     }
     String status =
         statusesMap.keys.elementAt(_random.nextInt(statusesMap.length));
-    return
-        // Appeal(
-        //     appealNumber: number, appealStatus: status, appealDate: DateTime.now());
-        Appeal(
-            appealNumber: number,
-            appealStatus: status,
-            appealDate: DateTime.now());
+    return Appeal(
+        appealNumber: number, appealStatus: status, appealDate: DateTime.now());
   }
 }
