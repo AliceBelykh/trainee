@@ -4,13 +4,13 @@ abstract class AppealsRepository {
   Future<List<Appeal>> getAppeals();
 
   // add appeal
-  Future<void> addAppeal(Appeal appeal);
+  Future<void> addAppeal();
 
   // change status
-  Future<void> changeStatus(Appeal appeal, String status);
+  Future<void> changeStatus(int appealNumber, String status);
 
   // delete appeal
-  Future<void> deleteAppeal(Appeal appeal);
+  Future<void> deleteAppeal(int appealNumber);
 
   // get appeal
 }

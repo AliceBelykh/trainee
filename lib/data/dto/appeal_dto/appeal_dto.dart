@@ -16,13 +16,10 @@ class AppealDto with _$AppealDto {
 
   factory AppealDto.fromJson(Map<String, Object?> json) =>
       _$AppealDtoFromJson(json);
-}
 
-extension AppealMapper on AppealDto {
-  Appeal toModel() {
-    return Appeal(
+  Appeal toDomain() => Appeal(
         appealNumber: appealNumber,
         appealStatus: appealStatus,
-        appealDate: appealDate);
-  }
+        appealDate: appealDate,
+      );
 }
