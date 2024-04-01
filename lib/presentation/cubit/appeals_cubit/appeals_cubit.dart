@@ -29,18 +29,18 @@ class AppealCubit extends Cubit<AppealState> {
         .then((value) => emit(state.copyWith(data: value)));
   }
 
-  Future<void> addAppeal(Appeal appeal) async {
-    _addAppealUseCase.execute(appeal: appeal);
+  Future<void> addAppeal() async {
+    _addAppealUseCase.execute();
     fetchData();
   }
 
-  Future<void> deleteAppeal(Appeal appeal) async {
-    _deleteAppealsUseCase.execute(appeal: appeal);
+  Future<void> deleteAppeal(int appealNumber) async {
+    _deleteAppealsUseCase.execute(appealNumber: appealNumber);
     fetchData();
   }
 
-  Future<void> changeStatus(Appeal appeal, String status) async {
-    _changeStatusUseCase.execute(appeal: appeal, status: status);
+  Future<void> changeStatus(int appealNumber, String status) async {
+    _changeStatusUseCase.execute(appealNumber: appealNumber, status: status);
     fetchData();
   }
 }

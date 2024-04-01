@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trainee/domain/models/appeal.dart';
-import 'package:trainee/domain/models/appeal_generator.dart';
 import 'package:trainee/get_it.dart';
 import 'package:trainee/presentation/cubit/appeals_cubit/appeals_cubit.dart';
 import 'package:trainee/presentation/widgets/add_button.dart';
@@ -55,9 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocBuilder<AppealCubit, AppealState>(
                   builder: (context, data) => AddButton(
                         onTap: () async {
-                          final appeal = AppealGenerator().generateAppeal();
-                          BlocProvider.of<AppealCubit>(context)
-                              .addAppeal(appeal);
+                          BlocProvider.of<AppealCubit>(context).addAppeal();
                         },
                         buttonText: "Создать обращение",
                       )),
@@ -66,9 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
               // appeals listview
               BlocSelector<AppealCubit, AppealState, List<Appeal>?>(
-                selector: (state) => state.data,
+                selector: (state) {
+                  List<Appeal>? appeals = state.data?.toList();
+                  return appeals
+                    ?..sort((a, b) => a.appealDate.compareTo(b.appealDate));
+                },
                 builder: (context, data) => Expanded(
                   child: ListView.builder(
+                    padding: const EdgeInsets.all(0),
                     itemBuilder: (context, index) {
                       final item = data![index];
                       return AppealTile(
@@ -78,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () => showAppealDialog(item, context),
                       );
                     },
-                    itemCount: data?.length,
+                    itemCount: data?.length ?? 0,
                   ),
                 ),
               ),
@@ -107,9 +109,10 @@ class _HomeScreenState extends State<HomeScreen> {
           return const StatusDialog();
         }).then((result) {
       if (result == "Delete") {
-        BlocProvider.of<AppealCubit>(context).deleteAppeal(appeal);
+        BlocProvider.of<AppealCubit>(context).deleteAppeal(appeal.appealNumber);
       } else if (result != null) {
-        BlocProvider.of<AppealCubit>(context).changeStatus(appeal, result);
+        BlocProvider.of<AppealCubit>(context)
+            .changeStatus(appeal.appealNumber, result);
       }
     });
   }
